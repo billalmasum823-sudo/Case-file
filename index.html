@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tahmid Shahriar Ratul Investigation File</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#06090f;
+  --panel:#0d131c;
+  --panel-2:#121a26;
+  --line:#1d2836;
+  --gold:#d9a441;
+  --gold-soft:#f0c674;
+  --txt:#cdd8e4;
+  --muted:#7688a0;
+  --ok:#4caf7d;
+  --warn:#e0a852;
+  --danger:#e05252;
+}
+
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'Noto Sans Bengali','Segoe UI',system-ui,-apple-system,sans-serif;
+  background:
+    radial-gradient(1200px 600px at 8% -12%, rgba(217,164,65,.10), transparent 62%),
+    radial-gradient(900px 520px at 108% 4%, rgba(80,140,255,.09), transparent 60%),
+    var(--bg);
+  color:var(--txt);
+  min-height:100vh;
+  padding-bottom:70px;
+  -webkit-font-smoothing:antialiased;
+}
+
+body::before{
+  content:'';
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px);
+  background-size:46px 46px;
+  -webkit-mask-image:radial-gradient(circle at 50% 0%, #000 0%, transparent 78%);
+  mask-image:radial-gradient(circle at 50% 0%, #000 0%, transparent 78%);
+}
+
+.wrap{position:relative;z-index:1;max-width:1320px;margin:0 auto;padding:0 16px}
+
+/* ================= HEADER ================= */
+.tape{
+  height:6px;
+  background:repeating-linear-gradient(45deg,var(--gold) 0 12px,#0a0e14 12px 24px);
+  opacity:.85;
+}
+
+.site-header{
+  position:relative;
+  border-bottom:1px solid var(--line);
+  background:
+    linear-gradient(180deg, rgba(217,164,65,.07), transparent 70%),
+    linear-gradient(180deg,#0b1119,#080d14);
+  overflow:hidden;
+}
+.site-header::after{
+  content:'';
+  position:absolute;left:0;right:0;bottom:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  opacity:.55;
+}
+.header-inner{
+  max-width:1320px;margin:0 auto;padding:34px 16px 30px;
+  text-align:center;position:relative;
+}
+
+.badge{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'Share Tech Mono',monospace;
+  font-size:11px;letter-spacing:2.2px;
+  color:var(--gold);
+  border:1px solid rgba(217,164,65,.35);
+  background:rgba(217,164,65,.06);
+  padding:6px 14px;border-radius:100px;
+  margin-bottom:18px;
+}
+.badge .dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--danger);
+  box-shadow:0 0 0 0 rgba(224,82,82,.7);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(224,82,82,.6)}
+  70%{box-shadow:0 0 0 9px rgba(224,82,82,0)}
+  100%{box-shadow:0 0 0 0 rgba(224,82,82,0)}
+}
+
+h1{
+  font-family:'Share Tech Mono',monospace;
+  font-size:clamp(1.5rem,4.2vw,2.7rem);
+  font-weight:400;
+  letter-spacing:1.5px;
+  color:#f2f6fb;
+  line-height:1.25;
+  text-shadow:0 0 34px rgba(217,164,65,.28);
+  -webkit-user-select:none;
+  user-select:none;
+}
+h1 .accent{
+  display:block;
+  color:var(--gold);
+  font-size:.62em;
+  letter-spacing:5px;
+  margin-top:10px;
+  text-transform:uppercase;
+}
+
+.ratul-trigger{
+  cursor:default;
+  transition:color .25s, text-shadow .25s;
+}
+
+.sub{
+  margin-top:16px;
+  font-size:.92rem;
+  color:var(--muted);
+  letter-spacing:.3px;
+}
+.sub b{color:var(--gold-soft);font-weight:600}
+
+/* ================= CONTROLS ================= */
+.controls{
+  position:sticky;top:0;z-index:50;
+  background:rgba(6,9,15,.88);
+  -webkit-backdrop-filter:blur(14px);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+  padding:14px 0;
+}
+.controls-inner{max-width:1320px;margin:0 auto;padding:0 16px}
+
+.search-row{display:flex;gap:10px;flex-wrap:wrap}
+
+.search-box{
+  flex:1;min-width:240px;position:relative;
+}
+.search-box svg{
+  position:absolute;left:14px;top:50%;transform:translateY(-50%);
+  width:17px;height:17px;stroke:var(--muted);fill:none;stroke-width:2;
+}
+#search{
+  width:100%;
+  background:var(--panel-2);
+  border:1px solid var(--line);
+  border-radius:9px;
+  padding:12px 14px 12px 42px;
+  color:var(--txt);
+  font-family:inherit;
+  font-size:.92rem;
+  outline:none;
+  transition:.22s;
+}
+#search::placeholder{color:#55637a}
+#search:focus{
+  border-color:rgba(217,164,65,.6);
+  box-shadow:0 0 0 3px rgba(217,164,65,.10);
+  background:#151e2b;
+}
+
+.chips{
+  display:flex;gap:8px;flex-wrap:wrap;
+  margin-top:12px;
+}
+.chip{
+  font-family:inherit;
+  font-size:.79rem;
+  padding:7px 13px;
+  border-radius:100px;
+  border:1px solid var(--line);
+  background:var(--panel-2);
+  color:var(--muted);
+  cursor:pointer;
+  transition:.2s;
+  white-space:nowrap;
+  display:inline-flex;align-items:center;gap:7px;
+}
+.chip:hover{color:var(--txt);border-color:#2c3a4d}
+.chip .cdot{width:7px;height:7px;border-radius:50%;background:var(--cc,#556);flex:none}
+.chip.active{
+  color:#0a0e14;
+  background:var(--gold);
+  border-color:var(--gold);
+  font-weight:600;
+}
+.chip.active .cdot{background:#0a0e14}
+
+/* ================= STATS ================= */
+.stats{
+  display:flex;gap:12px;flex-wrap:wrap;
+  margin:22px 0 16px;
+}
+.stat{
+  flex:1;min-width:140px;
+  background:linear-gradient(160deg,var(--panel-2),var(--panel));
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:13px 16px;
+}
+.stat .k{
+  font-family:'Share Tech Mono',monospace;
+  font-size:1.45rem;color:var(--gold);letter-spacing:1px;
+}
+.stat .l{font-size:.76rem;color:var(--muted);margin-top:3px;letter-spacing:.4px}
+
+.result-line{
+  font-size:.82rem;color:var(--muted);
+  margin-bottom:14px;letter-spacing:.3px;
+}
+.result-line b{color:var(--gold-soft)}
+
+/* ================= GRID ================= */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(288px,1fr));
+  gap:14px;
+}
+
+.card{
+  position:relative;
+  background:linear-gradient(160deg,var(--panel-2),var(--panel));
+  border:1px solid var(--line);
+  border-left:3px solid var(--c,#556);
+  border-radius:11px;
+  padding:14px 15px 13px;
+  transition:transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+  overflow:hidden;
+  animation:fadeUp .35s ease both;
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.card::after{
+  content:'';
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(320px 130px at 100% 0%, var(--c,#556), transparent 72%);
+  opacity:.10;transition:opacity .3s;
+}
+.card:hover{
+  transform:translateY(-3px);
+  border-color:var(--c,#556);
+  box-shadow:0 14px 34px -16px rgba(0,0,0,.95), 0 0 0 1px rgba(255,255,255,.02);
+}
+.card:hover::after{opacity:.20}
+
+.card-top{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:8px;margin-bottom:11px;
+}
+.case-no{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.68rem;letter-spacing:1.1px;
+  color:var(--muted);
+  background:rgba(0,0,0,.35);
+  border:1px solid var(--line);
+  padding:3px 8px;border-radius:5px;
+  transition:.2s;
+}
+.case-no.clickable{
+  cursor:pointer;
+  color:var(--gold-soft);
+  border-color:rgba(217,164,65,.28);
+}
+.case-no.clickable:hover{
+  background:var(--gold);
+  color:#0a0e14;
+  border-color:var(--gold);
+  box-shadow:0 0 14px -2px rgba(217,164,65,.6);
+}
+.status{
+  font-size:.64rem;
+  letter-spacing:.6px;
+  padding:3px 8px;border-radius:4px;
+  border:1px solid currentColor;
+  opacity:.9;
+  white-space:nowrap;
+}
+.st-verified{color:var(--ok)}
+.st-pending{color:var(--warn)}
+.st-hold{color:#7f9bd1}
+.st-review{color:var(--danger)}
+
+.name{
+  font-size:1.06rem;
+  font-weight:600;
+  color:#eef4fa;
+  letter-spacing:.2px;
+  margin-bottom:9px;
+  line-height:1.35;
+  cursor:pointer;
+  transition:color .2s;
+  display:inline-block;
+}
+.name:hover{color:var(--gold-soft)}
+
+.email-row{
+  display:flex;align-items:center;gap:7px;
+  background:rgba(0,0,0,.42);
+  border:1px solid var(--line);
+  border-radius:7px;
+  padding:7px 8px 7px 10px;
+  margin-bottom:10px;
+}
+.email-row svg{
+  width:13px;height:13px;flex:none;
+  stroke:var(--gold);fill:none;stroke-width:1.8;
+  opacity:.75;
+}
+.email-txt{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.735rem;
+  color:var(--gold-soft);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  flex:1;letter-spacing:.1px;
+}
+.copy-btn{
+  font-family:inherit;
+  font-size:.66rem;
+  padding:3px 8px;
+  border-radius:5px;
+  border:1px solid rgba(217,164,65,.35);
+  background:rgba(217,164,65,.08);
+  color:var(--gold);
+  cursor:pointer;
+  transition:.18s;
+  flex:none;
+}
+.copy-btn:hover{background:var(--gold);color:#0a0e14}
+.copy-btn.done{background:var(--ok);border-color:var(--ok);color:#04120b}
+
+.card-meta{
+  display:flex;justify-content:space-between;align-items:center;gap:8px;
+}
+.tag{
+  font-size:.68rem;
+  padding:3px 9px;
+  border-radius:100px;
+  color:var(--c,#889);
+  border:1px solid currentColor;
+  background:rgba(255,255,255,.02);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  max-width:62%;
+}
+.date{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.66rem;
+  color:var(--muted);
+  white-space:nowrap;
+}
+
+/* ================= LOAD MORE ================= */
+.load-wrap{text-align:center;margin:32px 0 10px}
+#loadMore{
+  font-family:inherit;
+  font-size:.9rem;
+  font-weight:600;
+  padding:13px 38px;
+  border-radius:9px;
+  border:1px solid rgba(217,164,65,.45);
+  background:linear-gradient(180deg, rgba(217,164,65,.14), rgba(217,164,65,.05));
+  color:var(--gold-soft);
+  cursor:pointer;
+  transition:.22s;
+  letter-spacing:.4px;
+}
+#loadMore:hover{
+  background:var(--gold);color:#0a0e14;border-color:var(--gold);
+  box-shadow:0 0 26px -4px rgba(217,164,65,.5);
+}
+#loadMore:disabled{opacity:.35;cursor:default;background:none;color:var(--muted)}
+
+.empty{
+  text-align:center;padding:70px 20px;color:var(--muted);
+}
+.empty .big{font-size:2.6rem;margin-bottom:10px;opacity:.4}
+
+/* ================= FOOTER ================= */
+footer{
+  margin-top:50px;
+  border-top:1px solid var(--line);
+  padding-top:22px;
+  text-align:center;
+}
+.footer-tag{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.7rem;
+  letter-spacing:2.5px;
+  color:#3d4859;
+}
+
+/* ================= MODALS ================= */
+.modal-overlay{
+  position:fixed;inset:0;
+  background:rgba(2,5,10,.86);
+  -webkit-backdrop-filter:blur(8px);
+  backdrop-filter:blur(8px);
+  z-index:200;
+  display:none;
+  align-items:center;justify-content:center;
+  padding:20px;
+  animation:fadeIn .22s ease;
+}
+.modal-overlay.show{display:flex}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+.modal{
+  background:linear-gradient(165deg,#121a26,#0b1119);
+  border:1px solid #24313f;
+  border-radius:14px;
+  box-shadow:0 30px 70px -20px rgba(0,0,0,.9), 0 0 0 1px rgba(217,164,65,.06);
+  max-height:92vh;
+  overflow-y:auto;
+  animation:modalIn .3s cubic-bezier(.16,1,.3,1);
+  position:relative;
+  width:100%;
+  -webkit-overflow-scrolling:touch;
+}
+@keyframes modalIn{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+
+/* scrollbar */
+.modal::-webkit-scrollbar{width:8px}
+.modal::-webkit-scrollbar-track{background:transparent}
+.modal::-webkit-scrollbar-thumb{background:#22303f;border-radius:4px}
+.modal::-webkit-scrollbar-thumb:hover{background:#2e4054}
+
+.modal-login{max-width:410px;padding:34px 30px 30px}
+.modal-admin{max-width:520px;padding:0}
+.modal-profile{max-width:760px;padding:0}
+
+.modal-close{
+  position:absolute;top:14px;right:14px;
+  width:34px;height:34px;
+  border-radius:8px;
+  border:1px solid var(--line);
+  background:rgba(0,0,0,.4);
+  color:var(--muted);
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:.2s;
+  z-index:2;
+  font-size:20px;line-height:1;
+  font-family:inherit;
+}
+.modal-close:hover{
+  background:var(--danger);
+  border-color:var(--danger);
+  color:#fff;
+}
+
+/* ---- Login ---- */
+.login-icon{
+  width:56px;height:56px;margin:0 auto 18px;
+  border-radius:14px;
+  background:linear-gradient(145deg, rgba(217,164,65,.18), rgba(217,164,65,.05));
+  border:1px solid rgba(217,164,65,.35);
+  display:flex;align-items:center;justify-content:center;
+}
+.login-icon svg{
+  width:26px;height:26px;
+  stroke:var(--gold);fill:none;stroke-width:1.8;
+}
+.login-title{
+  text-align:center;
+  font-family:'Share Tech Mono',monospace;
+  font-size:1.25rem;
+  color:#f2f6fb;
+  letter-spacing:1.5px;
+  margin-bottom:6px;
+}
+.login-sub{
+  text-align:center;
+  font-size:.82rem;
+  color:var(--muted);
+  margin-bottom:24px;
+  letter-spacing:.3px;
+}
+
+.field-label{
+  display:block;
+  font-size:.78rem;
+  color:var(--muted);
+  margin-bottom:7px;
+  letter-spacing:.4px;
+}
+.field-input{
+  width:100%;
+  background:var(--panel-2);
+  border:1px solid var(--line);
+  border-radius:9px;
+  padding:12px 14px;
+  color:var(--txt);
+  font-family:inherit;
+  font-size:.92rem;
+  outline:none;
+  transition:.2s;
+}
+.field-input:focus{
+  border-color:rgba(217,164,65,.6);
+  box-shadow:0 0 0 3px rgba(217,164,65,.10);
+  background:#151e2b;
+}
+.field-input.error{
+  border-color:var(--danger);
+  box-shadow:0 0 0 3px rgba(224,82,82,.12);
+  animation:shake .4s;
+}
+@keyframes shake{
+  0%,100%{transform:translateX(0)}
+  20%{transform:translateX(-7px)}
+  40%{transform:translateX(7px)}
+  60%{transform:translateX(-5px)}
+  80%{transform:translateX(5px)}
+}
+
+.btn-primary{
+  width:100%;
+  font-family:inherit;
+  font-size:.92rem;
+  font-weight:600;
+  padding:13px 20px;
+  border-radius:9px;
+  border:1px solid var(--gold);
+  background:linear-gradient(180deg,var(--gold-soft),var(--gold));
+  color:#0a0e14;
+  cursor:pointer;
+  transition:.22s;
+  letter-spacing:.4px;
+  margin-top:16px;
+}
+.btn-primary:hover{
+  box-shadow:0 0 26px -4px rgba(217,164,65,.7);
+  transform:translateY(-1px);
+}
+.btn-primary:active{transform:translateY(0)}
+
+.btn-ghost{
+  width:100%;
+  font-family:inherit;
+  font-size:.85rem;
+  padding:11px 20px;
+  border-radius:9px;
+  border:1px solid var(--line);
+  background:transparent;
+  color:var(--muted);
+  cursor:pointer;
+  transition:.2s;
+  letter-spacing:.3px;
+  margin-top:10px;
+}
+.btn-ghost:hover{
+  color:var(--danger);
+  border-color:rgba(224,82,82,.5);
+  background:rgba(224,82,82,.05);
+}
+
+.login-error{
+  text-align:center;
+  font-size:.78rem;
+  color:var(--danger);
+  margin-top:12px;
+  height:16px;
+  letter-spacing:.3px;
+}
+
+/* ---- Admin ---- */
+.admin-head{
+  padding:22px 26px 18px;
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:13px;
+  background:linear-gradient(180deg, rgba(217,164,65,.06), transparent);
+}
+.admin-head-icon{
+  width:42px;height:42px;flex:none;
+  border-radius:11px;
+  background:linear-gradient(145deg, rgba(217,164,65,.20), rgba(217,164,65,.06));
+  border:1px solid rgba(217,164,65,.35);
+  display:flex;align-items:center;justify-content:center;
+}
+.admin-head-icon svg{
+  width:20px;height:20px;
+  stroke:var(--gold);fill:none;stroke-width:1.8;
+}
+.admin-head h2{
+  font-family:'Share Tech Mono',monospace;
+  font-size:1.05rem;
+  color:#f2f6fb;
+  letter-spacing:1.4px;
+  font-weight:400;
+}
+.admin-head p{
+  font-size:.76rem;
+  color:var(--muted);
+  margin-top:3px;
+  letter-spacing:.3px;
+}
+
+.admin-body{padding:22px 26px 26px}
+
+.admin-info{
+  display:flex;gap:10px;
+  margin-bottom:20px;
+}
+.admin-info-box{
+  flex:1;
+  background:rgba(0,0,0,.3);
+  border:1px solid var(--line);
+  border-radius:9px;
+  padding:11px 14px;
+}
+.admin-info-box .k{
+  font-family:'Share Tech Mono',monospace;
+  font-size:1.15rem;color:var(--gold);
+}
+.admin-info-box .l{
+  font-size:.72rem;color:var(--muted);margin-top:2px;
+}
+
+.admin-form-row{display:flex;gap:10px;align-items:flex-end}
+.admin-form-row .field-wrap{flex:1}
+#caseCountInput{
+  font-family:'Share Tech Mono',monospace;
+  letter-spacing:1px;
+  font-size:1rem;
+}
+
+.admin-hint{
+  font-size:.74rem;
+  color:var(--muted);
+  margin-top:9px;
+  letter-spacing:.2px;
+  line-height:1.6;
+}
+.admin-hint b{color:var(--gold-soft)}
+
+.admin-msg{
+  font-size:.82rem;
+  margin-top:14px;
+  padding:11px 14px;
+  border-radius:8px;
+  display:none;
+  letter-spacing:.3px;
+}
+.admin-msg.ok{
+  display:block;
+  color:var(--ok);
+  background:rgba(76,175,125,.08);
+  border:1px solid rgba(76,175,125,.3);
+}
+.admin-msg.err{
+  display:block;
+  color:var(--danger);
+  background:rgba(224,82,82,.08);
+  border:1px solid rgba(224,82,82,.3);
+}
+
+/* ---- Profile ---- */
+.profile-sticky-head{
+  position:sticky;top:0;z-index:5;
+  background:linear-gradient(180deg,#121a26,#0e151f);
+  border-bottom:1px solid var(--line);
+  padding:20px 60px 18px 24px;
+}
+.profile-head{
+  display:flex;align-items:center;gap:15px;
+}
+.profile-avatar{
+  width:60px;height:60px;flex:none;
+  border-radius:14px;
+  background:linear-gradient(145deg, var(--c,#d9a441), rgba(0,0,0,.3));
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.6rem;
+  font-weight:700;
+  color:#0a0e14;
+  box-shadow:0 8px 22px -8px var(--c,#d9a441);
+}
+.profile-head-info{flex:1;min-width:0}
+.profile-head-info h2{
+  font-size:1.2rem;
+  font-weight:600;
+  color:#f2f6fb;
+  letter-spacing:.3px;
+  margin-bottom:6px;
+}
+.profile-head-meta{
+  display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+}
+
+.profile-body{padding:22px 24px 26px}
+
+.pf-section{margin-bottom:22px}
+.pf-section:last-child{margin-bottom:0}
+
+.pf-section-title{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.75rem;
+  letter-spacing:2px;
+  color:var(--gold);
+  text-transform:uppercase;
+  margin-bottom:12px;
+  padding-bottom:8px;
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:8px;
+}
+.pf-section-title::before{
+  content:'';
+  width:3px;height:13px;
+  background:var(--gold);
+  border-radius:2px;
+  display:inline-block;
+}
+
+.pf-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:9px;
+}
+.pf{
+  background:rgba(0,0,0,.28);
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:9px 12px;
+}
+.pf.wide{grid-column:1/-1}
+.pf .k{
+  display:block;
+  font-size:.68rem;
+  color:var(--muted);
+  letter-spacing:.4px;
+  margin-bottom:4px;
+}
+.pf .v{
+  display:block;
+  font-size:.88rem;
+  color:#e5edf6;
+  letter-spacing:.2px;
+  word-break:break-word;
+}
+.pf .v.mono{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.82rem;
+  color:var(--gold-soft);
+}
+
+.address-box{
+  background:linear-gradient(160deg, rgba(217,164,65,.05), rgba(0,0,0,.2));
+  border:1px solid rgba(217,164,65,.18);
+  border-radius:10px;
+  padding:14px 16px;
+}
+.addr-line{
+  font-size:.85rem;
+  color:#dde6f0;
+  padding:5px 0;
+  display:flex;
+  gap:8px;
+  line-height:1.5;
+}
+.addr-line + .addr-line{border-top:1px dashed rgba(255,255,255,.05)}
+.addr-line span{
+  color:var(--muted);
+  font-size:.76rem;
+  min-width:98px;
+  flex:none;
+  letter-spacing:.3px;
+  padding-top:2px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width:640px){
+  .header-inner{padding:26px 14px 24px}
+  h1 .accent{letter-spacing:3px}
+  .grid{grid-template-columns:1fr}
+  .stat{min-width:calc(50% - 6px);flex:1 1 calc(50% - 6px)}
+  .stat .k{font-size:1.2rem}
+  .controls{padding:12px 0}
+  .modal-login{padding:28px 22px 24px}
+  .admin-head{padding:18px 20px 15px}
+  .admin-body{padding:18px 20px 22px}
+  .admin-form-row{flex-direction:column;align-items:stretch}
+  .admin-form-row .btn-primary{margin-top:0}
+  .profile-sticky-head{padding:16px 54px 14px 18px}
+  .profile-body{padding:18px 18px 22px}
+  .profile-avatar{width:50px;height:50px;font-size:1.35rem}
+  .profile-head-info h2{font-size:1.05rem}
+  .pf-grid{grid-template-columns:1fr}
+  .addr-line{flex-direction:column;gap:2px}
+  .addr-line span{min-width:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="tape"></div>
+<header class="site-header">
+  <div class="header-inner">
+    <div class="badge"><span class="dot"></span> CONFIDENTIAL · INVESTIGATION DOSSIER</div>
+    <h1>
+      Tahmid Shahriar <span class="ratul-trigger" id="ratulTrigger">Ratul</span>
+      <span class="accent">Investigation File</span>
+    </h1>
+    <p class="sub">
+      ক্যাচ ফাইল ও প্রমাণ নথি ভিত্তিক তদন্ত রেকর্ড · মোট <b id="totalCount">০</b> টি এন্ট্রি
+    </p>
+  </div>
+</header>
+
+<!-- ===== CONTROLS ===== -->
+<div class="controls">
+  <div class="controls-inner">
+    <div class="search-row">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+        <input id="search" type="text" placeholder="নাম, জিমেইল বা কেস নম্বর দিয়ে খুঁজুন...">
+      </div>
+    </div>
+    <div class="chips" id="chips"></div>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<main class="wrap">
+
+  <div class="stats">
+    <div class="stat"><div class="k" id="statTotal">০</div><div class="l">মোট ফাইল</div></div>
+    <div class="stat"><div class="k" id="statShown">০</div><div class="l">প্রদর্শিত</div></div>
+    <div class="stat"><div class="k" id="statCat">০</div><div class="l">ক্যাটাগরি</div></div>
+    <div class="stat"><div class="k" id="statMail">০</div><div class="l">ইউনিক জিমেইল</div></div>
+  </div>
+
+  <div class="result-line" id="resultLine"></div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="load-wrap">
+    <button id="loadMore">আরও ফাইল দেখুন</button>
+  </div>
+
+  <footer>
+    <div class="footer-tag">TSR · INVESTIGATION FILE · 2026</div>
+  </footer>
+
+</main>
+
+<!-- ================= LOGIN MODAL ================= -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal modal-login">
+    <button class="modal-close" data-close="loginModal">×</button>
+    <div class="login-icon">
+      <svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+    </div>
+    <div class="login-title">ADMIN ACCESS</div>
+    <div class="login-sub">অ্যাডমিন প্যানেলে প্রবেশ করতে পাসওয়ার্ড দিন</div>
+    <label class="field-label" for="adminPass">পাসওয়ার্ড</label>
+    <input type="password" class="field-input" id="adminPass" placeholder="••••••••" autocomplete="off">
+    <button class="btn-primary" id="loginBtn">লগইন করুন</button>
+    <div class="login-error" id="loginError"></div>
+  </div>
+</div>
+
+<!-- ================= ADMIN MODAL ================= -->
+<div class="modal-overlay" id="adminModal">
+  <div class="modal modal-admin">
+    <button class="modal-close" data-close="adminModal">×</button>
+    <div class="admin-head">
+      <div class="admin-head-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/></svg>
+      </div>
+      <div>
+        <h2>ADMIN PANEL</h2>
+        <p>ক্যাচ ফাইল কনফিগারেশন</p>
+      </div>
+    </div>
+    <div class="admin-body">
+      <div class="admin-info">
+        <div class="admin-info-box">
+          <div class="k" id="adminCurrent">০</div>
+          <div class="l">বর্তমান ক্যাচ সংখ্যা</div>
+        </div>
+        <div class="admin-info-box">
+          <div class="k" id="adminMax">০</div>
+          <div class="l">সর্বোচ্চ সীমা</div>
+        </div>
+      </div>
+
+      <label class="field-label" for="caseCountInput">নতুন ক্যাচ সংখ্যা নির্ধারণ করুন</label>
+      <div class="admin-form-row">
+        <div class="field-wrap">
+          <input type="number" class="field-input" id="caseCountInput" min="1" step="1">
+        </div>
+        <button class="btn-primary" id="saveCountBtn" style="width:auto;margin-top:0;padding:12px 26px;">সেভ করুন</button>
+      </div>
+      <div class="admin-hint">
+        সংখ্যা পরিবর্তন করে সেভ করলে <b>স্থায়ীভাবে সংরক্ষিত</b> হবে এবং ওয়েবসাইটে সেই অনুযায়ী ক্যাচ ফাইল প্রদর্শিত হবে।
+      </div>
+
+      <div class="admin-msg" id="adminMsg"></div>
+
+      <button class="btn-ghost" id="logoutBtn">লগআউট করুন</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= PROFILE MODAL ================= -->
+<div class="modal-overlay" id="profileModal">
+  <div class="modal modal-profile">
+    <button class="modal-close" data-close="profileModal">×</button>
+    <div class="profile-sticky-head">
+      <div class="profile-head" id="profileHead"></div>
+    </div>
+    <div class="profile-body" id="profileBody"></div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   ১. সিডেড র‍্যান্ডম
+   ========================================================= */
+function mulberry32(a){
+  return function(){
+    a |= 0; a = a + 0x6D2B79F5 | 0;
+    let t = Math.imul(a ^ a >>> 15, 1 | a);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+
+/* =========================================================
+   ২. নাম ডেটা
+   ========================================================= */
+const FIRST = [
+["আয়েশা","Ayesha"],["ফাতেমা","Fatema"],["সুমাইয়া","Sumaiya"],["তাসনিম","Tasnim"],
+["নুসরাত","Nusrat"],["জান্নাত","Jannat"],["মেহজাবিন","Mehjabin"],["রাইসা","Raisa"],
+["সাদিয়া","Sadia"],["মারিয়া","Maria"],["ইশরাত","Ishrat"],["তানিয়া","Tania"],
+["শারমিন","Sharmin"],["লামিয়া","Lamia"],["রুবাইয়া","Rubaiya"],["হুমাইরা","Humaira"],
+["আফসানা","Afsana"],["নাজমুন","Nazmun"],["সাবরিনা","Sabrina"],["মাহমুদা","Mahmuda"],
+["রেহানা","Rehana"],["সালমা","Salma"],["আসমা","Asma"],["বুশরা","Bushra"],
+["তাসমিয়া","Tasmia"],["সানজিদা","Sanjida"],["ফারজানা","Farzana"],["শাহনাজ","Shahnaaz"],
+["রুমানা","Rumana"],["সোনিয়া","Sonia"],["মৌসুমী","Mousumi"],["প্রিয়াঙ্কা","Priyanka"],
+["অন্তরা","Antora"],["ইমা","Ima"],["ঝর্ণা","Jharna"],["কনা","Kona"],
+["লিপি","Lipi"],["মিতু","Mitu"],["নদী","Nodi"],["পপি","Popi"],
+["রিনা","Rina"],["সেঁজুতি","Shejuti"],["তুলি","Tuli"],["উর্মি","Urmi"],
+["বৃষ্টি","Brishti"],["চাঁদনি","Chandni"],["দীপা","Dipa"],["এলিন","Elin"],
+["ফাহমিদা","Fahmida"],["গোলাপ","Golap"],["হীরা","Hira"],["জেসমিন","Jesmin"],
+["কাবেরী","Kaberi"],["লাবণ্য","Labannya"],["মধুমিতা","Modhumita"],["নীলা","Nila"],
+["ওমা","Oma"],["পূজা","Puja"],["রূপা","Rupa"],["সাথী","Sathi"],
+["তৃষা","Trisha"],["উষা","Usha"],["বিথি","Bithi"],["চৈতি","Choiti"],
+["ডলি","Doli"],["এশা","Esha"],["ফাল্গুনী","Falguni"],["গীতা","Gita"],
+["হাসি","Hasi"],["ইলা","Ila"],["জুঁই","Jui"],["কাকলি","Kakoli"],
+["লতা","Lota"],["মালা","Mala"],["নূপুর","Nupur"],["ওশিন","Oshin"],
+["পায়েল","Payel"],["রিয়া","Ria"],["সোনালি","Sonali"],["তারা","Tara"],
+["বন্যা","Bannya"],["চিত্রা","Chitra"],["দিশা","Disha"],["ইতি","Iti"],
+["ফরিদা","Farida"],["গৌরী","Gouri"],["হেনা","Hena"],["ইশা","Isha"],
+["জয়া","Joya"],["কনিকা","Konika"],["লিনা","Lina"],["মায়া","Maya"],
+["নাজিয়া","Nazia"],["পারভীন","Parvin"],["রোজি","Roji"],["সীমা","Seema"],
+["তনু","Tonu"],["বর্ষা","Barsha"],["চম্পা","Champa"],["দিবা","Diba"],
+["ইভা","Eva"],["ফিরোজা","Firoza"],["হাবিবা","Habiba"],["ইনসিয়া","Insia"],
+["জাহানারা","Jahanara"],["কাজল","Kajol"],["লুবনা","Lubna"],["মিতালি","Mitali"],
+["নিশাত","Nishat"],["ওয়াফা","Wafa"],["পলি","Poli"],["রাশিদা","Rashida"],
+["সুরাইয়া","Suraiya"],["তামান্না","Tamanna"],["উজমা","Uzma"],["বেলী","Beli"],
+["দিলরুবা","Dilruba"],["ফাইজা","Faiza"],["ইয়াসমিন","Yasmin"],["নাদিয়া","Nadia"],
+["ওয়াহিদা","Wahida"],["পারুল","Parul"],["রাবেয়া","Rabeya"],["সাজেদা","Sajeda"],
+["তাহমিনা","Tahmina"],["বিলকিস","Bilkis"],["দেলোয়ারা","Delowara"],["ইসমত","Ismat"],
+["ফৌজিয়া","Fouzia"],["হুসনিয়া","Husnia"],["জরিনা","Jorina"],["কানিজ","Kaniz"],
+["মেহেরুন","Meherun"],["নূরজাহান","Nurjahan"],["পান্না","Panna"],["রোকসানা","Roksana"],
+["সাবিনা","Sabina"],["তাসলিমা","Taslima"],["বাসন্তী","Basanti"],["আনিকা","Anika"],
+["স্নেহা","Sneha"],["ঐশী","Oishi"],["মাহিয়া","Mahia"],["রিতু","Ritu"],
+["শিল্পী","Shilpi"],["অঞ্জলি","Anjoli"],["প্রতিভা","Protibha"],["স্বপ্না","Swapna"],
+["কবিতা","Kobita"],["মমতা","Momota"]
+];
+
+const LAST = [
+["আক্তার","Akter"],["খাতুন","Khatun"],["বেগম","Begum"],["সুলতানা","Sultana"],
+["পারভীন","Parvin"],["নাহার","Nahar"],["ইয়াসমিন","Yasmin"],["জাহান","Jahan"],
+["তাবাসসুম","Tabassum"],["মুন্নী","Munni"],["হক","Haque"],["সিদ্দিকা","Siddika"],
+["বানু","Banu"],["ফেরদৌস","Ferdous"],["মজুমদার","Majumder"],["সরকার","Sarker"],
+["তালুকদার","Talukder"],["শেখ","Sheikh"],["আহমেদ","Ahmed"],["হোসেন","Hossain"],
+["রহমান","Rahman"],["চৌধুরী","Chowdhury"],["ইসলাম","Islam"],["আলী","Ali"],
+["মিয়া","Mia"]
+];
+
+const CATEGORIES = [
+  {id:"catch",    name:"ক্যাচ ফাইল",              color:"#f5b301"},
+  {id:"evidence", name:"প্রমাণ নথি",               color:"#4fc3f7"},
+  {id:"witness",  name:"সাক্ষীর বিবৃতি",           color:"#81c784"},
+  {id:"forensic", name:"মোবাইল ফরেনসিক রিপোর্ট",   color:"#ba68c8"},
+  {id:"social",   name:"সোশ্যাল মিডিয়া রেকর্ড",   color:"#ff8a65"},
+  {id:"av",       name:"অডিও-ভিজ্যুয়াল প্রমাণ",   color:"#4dd0e1"},
+  {id:"bank",     name:"লেনদেন রেকর্ড",            color:"#ffd54f"}
+];
+
+const STATUS = [
+  {t:"যাচাইকৃত",  c:"st-verified"},
+  {t:"অপেক্ষমাণ", c:"st-pending"},
+  {t:"সংরক্ষিত",  c:"st-hold"},
+  {t:"পর্যালোচনা",c:"st-review"}
+];
+
+/* ===== প্রোফাইল ডেটা (বাংলাদেশ) ===== */
+const DIVISIONS = [
+  {name:"ঢাকা", districts:["ঢাকা","গাজীপুর","নারায়ণগঞ্জ","টাঙ্গাইল","কিশোরগঞ্জ","মানিকগঞ্জ","মুন্সিগঞ্জ","নরসিংদী","ফরিদপুর","রাজবাড়ী","গোপালগঞ্জ","মাদারীপুর","শরীয়তপুর"]},
+  {name:"চট্টগ্রাম", districts:["চট্টগ্রাম","কক্সবাজার","কুমিল্লা","ব্রাহ্মণবাড়িয়া","চাঁদপুর","ফেনী","লক্ষ্মীপুর","নোয়াখালী","বান্দরবান","খাগড়াছড়ি","রাঙ্গামাটি"]},
+  {name:"রাজশাহী", districts:["রাজশাহী","নাটোর","নওগাঁ","চাঁপাইনবাবগঞ্জ","পাবনা","সিরাজগঞ্জ","বগুড়া","জয়পুরহাট"]},
+  {name:"খুলনা", districts:["খুলনা","বাগেরহাট","সাতক্ষীরা","যশোর","ঝিনাইদহ","মাগুরা","নড়াইল","কুষ্টিয়া","চুয়াডাঙ্গা","মেহেরপুর"]},
+  {name:"বরিশাল", districts:["বরিশাল","পটুয়াখালী","ভোলা","পিরোজপুর","বরগুনা","ঝালকাঠি"]},
+  {name:"সিলেট", districts:["সিলেট","মৌলভীবাজার","হবিগঞ্জ","সুনামগঞ্জ"]},
+  {name:"রংপুর", districts:["রংপুর","দিনাজপুর","ঠাকুরগাঁও","পঞ্চগড়","নীলফামারী","লালমনিরহাট","কুড়িগ্রাম","গাইবান্ধা"]},
+  {name:"ময়মনসিংহ", districts:["ময়মনসিংহ","জামালপুর","নেত্রকোণা","শেরপুর"]}
+];
+
+const UPAZILAS = [
+  "সদর","কোতোয়ালি","মডেল থানা","উত্তর থানা","দক্ষিণ থানা","পূর্ব থানা","পশ্চিম থানা",
+  "নতুন থানা","পুরাতন থানা","সদর উপজেলা","বাজার উপজেলা"
+];
+
+const VILLAGES = [
+  "পূর্ব পাড়া","পশ্চিম পাড়া","উত্তর পাড়া","দক্ষিণ পাড়া","মধ্যপাড়া",
+  "নতুন পাড়া","পুরান পাড়া","মোল্লাপাড়া","মিয়াপাড়া","শেখপাড়া",
+  "হাজীপাড়া","চরপাড়া","কলোনীপাড়া","বাজারপাড়া","মসজিদপাড়া",
+  "স্কুলপাড়া","রেলপাড়া","ঘাটপাড়া","টেকপাড়া","বন্দরপাড়া",
+  "সরকারপাড়া","দক্ষিণ চর","উত্তর চর","পূর্ব চর","নদীপাড়া"
+];
+
+const MALE_NAMES = [
+  "মোঃ রফিকুল ইসলাম","আব্দুল করিম","মোহাম্মদ আলী","মোঃ জসিম উদ্দিন",
+  "আব্দুর রহমান","মোঃ হানিফ মিয়া","শাহজাহান আলী","মোঃ সেলিম রেজা",
+  "আবুল কাশেম","মোঃ নুরুল ইসলাম","আব্দুল্লাহ আল মামুন","মোঃ শফিকুল ইসলাম",
+  "মোঃ আনোয়ার হোসেন","আব্দুস সালাম","মোঃ মিজানুর রহমান","শেখ ফরিদ উদ্দিন",
+  "মোঃ ইদ্রিস আলী","আব্দুল মজিদ","মোঃ কামরুল হাসান","মোঃ জাকির হোসেন",
+  "মোঃ আশরাফুল হক","আব্দুল জলিল","মোঃ শাহাদাত হোসেন","মোঃ ফজলুল করিম"
+];
+
+const OCCUPATIONS = [
+  "গৃহিণী","শিক্ষিকা","ছাত্রী","ব্যবসায়ী","সরকারি চাকরিজীবী",
+  "বেসরকারি চাকরিজীবী","ডাক্তার","ইঞ্জিনিয়ার","ফ্রিল্যান্সার",
+  "কৃষি কাজ","আইনজীবী","নার্স","শিক্ষার্থী","উদ্যোক্তা"
+];
+
+const RELIGIONS = ["ইসলাম","ইসলাম","ইসলাম","ইসলাম","হিন্দু","বৌদ্ধ","খ্রিস্টান"];
+const BLOOD = ["A+","B+","O+","AB+","A-","B-","O-","AB+","B+","O+"];
+const MARITAL = ["অবিবাহিত","অবিবাহিত","বিবাহিত","অবিবাহিত"];
+
+/* =========================================================
+   ৩. সেটিংস ও স্টোরেজ
+   ========================================================= */
+const STORAGE_KEY = "tsr_case_count";
+const DEFAULT_CASES = 950;
+const MAX_CASES = FIRST.length * LAST.length;
+
+function getSavedCount(){
+  try{
+    const v = parseInt(localStorage.getItem(STORAGE_KEY), 10);
+    if (Number.isFinite(v) && v >= 1 && v <= MAX_CASES) return v;
+  }catch(e){}
+  return DEFAULT_CASES;
+}
+
+/* =========================================================
+   ৪. রেকর্ড বিল্ড (ডিটারমিনিস্টিক)
+   ========================================================= */
+let records = [];
+let usedEmails = new Set();
+
+function buildRecords(count){
+  const r = mulberry32(20260911);
+
+  // combos shuffle
+  const combos = [];
+  for (const f of FIRST) for (const l of LAST) combos.push([f, l]);
+  for (let i = combos.length - 1; i > 0; i--){
+    const j = Math.floor(r() * (i + 1));
+    [combos[i], combos[j]] = [combos[j], combos[i]];
+  }
+
+  usedEmails = new Set();
+  records = [];
+
+  const startTime = new Date(2023, 0, 1).getTime();
+  const endTime   = new Date(2026, 7, 31).getTime();
+
+  for (let i = 0; i < count; i++){
+    const [f, l] = combos[i];
+    const rf = f[1].toLowerCase().replace(/[^a-z]/g, "");
+    const rl = l[1].toLowerCase().replace(/[^a-z]/g, "");
+
+    let email, guard = 0;
+    do{
+      const num  = Math.floor(r() * 9900) + 100;
+      const num2 = Math.floor(r() * 98) + 1;
+      const style = Math.floor(r() * 3);
+      let local;
+      if (style === 0)      local = rf + "." + rl + num;
+      else if (style === 1) local = rf + rl + num;
+      else                  local = rf + "_" + rl + num2;
+      if (guard > 0) local += guard;
+      email = local + "@gmail.com";
+      guard++;
+    } while (usedEmails.has(email) && guard < 60);
+    usedEmails.add(email);
+
+    const cat = CATEGORIES[(i + Math.floor(r() * CATEGORIES.length)) % CATEGORIES.length];
+    const st  = STATUS[Math.floor(r() * STATUS.length)];
+    const ts  = startTime + r() * (endTime - startTime);
+    const dateObj = new Date(ts);
+    const caseNo = "TSR-" + dateObj.getFullYear() + "-" + String(i + 1).padStart(4, "0");
+
+    records.push({
+      id: i + 1,
+      name: f[0] + " " + l[0],
+      email, cat, status: st,
+      date: dateObj, caseNo
+    });
+  }
+}
+
+/* =========================================================
+   ৫. প্রোফাইল জেনারেটর
+   ========================================================= */
+function profileFor(record){
+  const r = mulberry32(record.id * 2654435761 + 20260911);
+
+  const div  = DIVISIONS[Math.floor(r() * DIVISIONS.length)];
+  const dist = div.districts[Math.floor(r() * div.districts.length)];
+  const upa  = UPAZILAS[Math.floor(r() * UPAZILAS.length)];
+  const vill = VILLAGES[Math.floor(r() * VILLAGES.length)];
+
+  const father = MALE_NAMES[Math.floor(r() * MALE_NAMES.length)];
+  const mother = FIRST[Math.floor(r() * FIRST.length)][0] + " " + LAST[Math.floor(r() * LAST.length)][0];
+  const occupation = OCCUPATIONS[Math.floor(r() * OCCUPATIONS.length)];
+  const religion = RELIGIONS[Math.floor(r() * RELIGIONS.length)];
+  const blood = BLOOD[Math.floor(r() * BLOOD.length)];
+  const marital = MARITAL[Math.floor(r() * MARITAL.length)];
+
+  const age = 18 + Math.floor(r() * 40);
+  const birthYear = 2026 - age;
+  const birthMonth = 1 + Math.floor(r() * 12);
+  const birthDay = 1 + Math.floor(r() * 28);
+
+  const prefix = ["013","015","016","017","018","019"][Math.floor(r() * 6)];
+  const phone = prefix + String(Math.floor(r() * 100000000)).padStart(8, "0");
+
+  const nid = String(Math.floor(r() * 9000000000) + 1000000000);
+  const postOffice = dist + " সদর";
+
+  return {div: div.name, dist, upa, vill, father, mother, occupation, religion, blood, marital,
+          age, birthYear, birthMonth, birthDay, phone, nid, postOffice};
+}
+
+/* =========================================================
+   ৬. হেল্পার
+   ========================================================= */
+const BN_DIGITS = "০১২৩৪৫৬৭৮৯";
+const BN_MONTHS = ["জানু","ফেব্রু","মার্চ","এপ্রিল","মে","জুন","জুলাই","আগস্ট","সেপ্টে","অক্টো","নভে","ডিসে"];
+
+function toBn(input){
+  return String(input).replace(/\d/g, d => BN_DIGITS[+d]);
+}
+function fmtDate(d){
+  return toBn(d.getDate()) + " " + BN_MONTHS[d.getMonth()] + " " + toBn(d.getFullYear());
+}
+function escapeHTML(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+/* =========================================================
+   ৭. রেন্ডারিং
+   ========================================================= */
+const grid        = document.getElementById("grid");
+const chipsBox    = document.getElementById("chips");
+const searchInput = document.getElementById("search");
+const loadMoreBtn = document.getElementById("loadMore");
+const resultLine  = document.getElementById("resultLine");
+
+const state = { q: "", cat: "all", shown: 60 };
+
+function buildChips(){
+  const all = [{id:"all", name:"সব ফাইল", color:"#d9a441"}, ...CATEGORIES];
+  chipsBox.innerHTML = all.map(c => `
+    <button class="chip ${c.id === "all" ? "active" : ""}" data-cat="${c.id}" style="--cc:${c.color}">
+      <span class="cdot"></span>${c.name}
+    </button>
+  `).join("");
+}
+
+chipsBox.addEventListener("click", e => {
+  const btn = e.target.closest(".chip");
+  if (!btn) return;
+  state.cat = btn.dataset.cat;
+  state.shown = 60;
+  [...chipsBox.children].forEach(c => c.classList.toggle("active", c === btn));
+  render();
+});
+
+let searchTimer;
+searchInput.addEventListener("input", e => {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => {
+    state.q = e.target.value.trim().toLowerCase();
+    state.shown = 60;
+    render();
+  }, 160);
+});
+
+function getFiltered(){
+  const q = state.q;
+  return records.filter(r => {
+    if (state.cat !== "all" && r.cat.id !== state.cat) return false;
+    if (!q) return true;
+    return r.name.toLowerCase().includes(q)
+        || r.email.toLowerCase().includes(q)
+        || r.caseNo.toLowerCase().includes(q)
+        || r.cat.name.includes(q);
+  });
+}
+
+function cardHTML(r){
+  return `
+  <article class="card" style="--c:${r.cat.color}">
+    <div class="card-top">
+      <span class="case-no clickable" data-id="${r.id}" title="বিস্তারিত দেখুন">${r.caseNo}</span>
+      <span class="status ${r.status.c}">${r.status.t}</span>
+    </div>
+    <h3 class="name" data-id="${r.id}">${escapeHTML(r.name)}</h3>
+    <div class="email-row">
+      <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+      <span class="email-txt" title="${r.email}">${r.email}</span>
+      <button class="copy-btn" data-mail="${r.email}">কপি</button>
+    </div>
+    <div class="card-meta">
+      <span class="tag">${r.cat.name}</span>
+      <span class="date">${fmtDate(r.date)}</span>
+    </div>
+  </article>`;
+}
+
+function render(){
+  const filtered = getFiltered();
+  const slice = filtered.slice(0, state.shown);
+
+  if (slice.length === 0){
+    grid.innerHTML = `<div class="empty" style="grid-column:1/-1">
+      <div class="big">🔍</div>
+      <div>কোনো ফাইল খুঁজে পাওয়া যায়নি</div>
+    </div>`;
+  } else {
+    grid.innerHTML = slice.map(cardHTML).join("");
+  }
+
+  document.getElementById("statTotal").textContent = toBn(records.length);
+  document.getElementById("statShown").textContent = toBn(filtered.length);
+  document.getElementById("statCat").textContent   = toBn(CATEGORIES.length);
+  document.getElementById("statMail").textContent  = toBn(usedEmails.size);
+  document.getElementById("totalCount").textContent = toBn(records.length);
+
+  resultLine.innerHTML = `মোট <b>${toBn(filtered.length)}</b> টি ফাইল পাওয়া গেছে` +
+    (state.cat !== "all" ? ` · ক্যাটাগরি: <b>${CATEGORIES.find(c=>c.id===state.cat).name}</b>` : "") +
+    (state.q ? ` · সার্চ: <b>${escapeHTML(state.q)}</b>` : "");
+
+  if (state.shown >= filtered.length){
+    loadMoreBtn.disabled = true;
+    loadMoreBtn.textContent = "সব ফাইল দেখানো হয়েছে ✓";
+  } else {
+    loadMoreBtn.disabled = false;
+    loadMoreBtn.textContent = `আরও ফাইল দেখুন (${toBn(filtered.length - state.shown)} বাকি)`;
+  }
+}
+
+loadMoreBtn.addEventListener("click", () => {
+  state.shown += 60;
+  render();
+});
+
+/* copy email */
+grid.addEventListener("click", async e => {
+  const copyBtn = e.target.closest(".copy-btn");
+  if (copyBtn){
+    const mail = copyBtn.dataset.mail;
+    try{ await navigator.clipboard.writeText(mail); }
+    catch{
+      const ta = document.createElement("textarea");
+      ta.value = mail;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+    }
+    const original = copyBtn.textContent;
+    copyBtn.textContent = "✓ কপি";
+    copyBtn.classList.add("done");
+    setTimeout(() => {
+      copyBtn.textContent = original;
+      copyBtn.classList.remove("done");
+    }, 1200);
+    return;
+  }
+
+  const trigger = e.target.closest("[data-id]");
+  if (trigger){
+    const id = parseInt(trigger.dataset.id, 10);
+    const rec = records.find(r => r.id === id);
+    if (rec) openProfile(rec);
+  }
+});
+
+/* =========================================================
+   ৮. মডাল কন্ট্রোল
+   ========================================================= */
+function openModal(id){ document.getElementById(id).classList.add("show"); }
+function closeModal(id){ document.getElementById(id).classList.remove("show"); }
+
+document.querySelectorAll("[data-close]").forEach(btn => {
+  btn.addEventListener("click", () => closeModal(btn.dataset.close));
+});
+
+document.querySelectorAll(".modal-overlay").forEach(ov => {
+  ov.addEventListener("click", e => {
+    if (e.target === ov) ov.classList.remove("show");
+  });
+});
+
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape"){
+    document.querySelectorAll(".modal-overlay.show").forEach(m => m.classList.remove("show"));
+  }
+});
+
+/* =========================================================
+   ৯. অ্যাডমিন লগইন (৩ বার ক্লিক)
+   ========================================================= */
+const ADMIN_PASSWORD = "Ratul0278";
+let isAdmin = false;
+
+const ratulTrigger = document.getElementById("ratulTrigger");
+let clickCount = 0;
+let clickTimer = null;
+
+ratulTrigger.addEventListener("click", () => {
+  clickCount++;
+  clearTimeout(clickTimer);
+  clickTimer = setTimeout(() => { clickCount = 0; }, 650);
+
+  if (clickCount >= 3){
+    clickCount = 0;
+    clearTimeout(clickTimer);
+    if (isAdmin) openAdminPanel();
+    else openLogin();
+  }
+});
+
+/* ---- Login ---- */
+const loginModal = document.getElementById("loginModal");
+const adminPass  = document.getElementById("adminPass");
+const loginError = document.getElementById("loginError");
+
+function openLogin(){
+  adminPass.value = "";
+  loginError.textContent = "";
+  adminPass.classList.remove("error");
+  openModal("loginModal");
+  setTimeout(() => adminPass.focus(), 200);
+}
+
+function tryLogin(){
+  const val = adminPass.value;
+  if (val === ADMIN_PASSWORD){
+    isAdmin = true;
+    closeModal("loginModal");
+    openAdminPanel();
+  } else {
+    loginError.textContent = "পাসওয়ার্ড সঠিক নয়";
+    adminPass.classList.add("error");
+    adminPass.value = "";
+    setTimeout(() => adminPass.classList.remove("error"), 500);
+    adminPass.focus();
+  }
+}
+
+document.getElementById("loginBtn").addEventListener("click", tryLogin);
+adminPass.addEventListener("keydown", e => {
+  if (e.key === "Enter") tryLogin();
+});
+adminPass.addEventListener("input", () => { loginError.textContent = ""; });
+
+/* ---- Admin Panel ---- */
+const adminModal  = document.getElementById("adminModal");
+const caseCountInput = document.getElementById("caseCountInput");
+const adminMsg    = document.getElementById("adminMsg");
+
+function openAdminPanel(){
+  const current = getSavedCount();
+  document.getElementById("adminCurrent").textContent = toBn(current);
+  document.getElementById("adminMax").textContent = toBn(MAX_CASES);
+  caseCountInput.value = current;
+  caseCountInput.max = MAX_CASES;
+  adminMsg.className = "admin-msg";
+  adminMsg.textContent = "";
+  openModal("adminModal");
+  setTimeout(() => caseCountInput.focus(), 200);
+}
+
+function showAdminMsg(text, type){
+  adminMsg.textContent = text;
+  adminMsg.className = "admin-msg " + type;
+}
+
+document.getElementById("saveCountBtn").addEventListener("click", () => {
+  const raw = caseCountInput.value.trim();
+  const n = parseInt(raw, 10);
+
+  if (!Number.isFinite(n) || n < 1 || n > MAX_CASES){
+    showAdminMsg(`সঠিক সংখ্যা দিন (১ - ${toBn(MAX_CASES)})`, "err");
+    return;
+  }
+
+  try{
+    localStorage.setItem(STORAGE_KEY, String(n));
+  }catch(e){
+    showAdminMsg("সংরক্ষণ করা যায়নি। ব্রাউজার স্টোরেজ ব্লক করা থাকতে পারে।", "err");
+    return;
+  }
+
+  buildRecords(n);
+  state.shown = 60;
+  state.cat = "all";
+  state.q = "";
+  searchInput.value = "";
+  [...chipsBox.children].forEach((c, i) => c.classList.toggle("active", i === 0));
+  render();
+
+  document.getElementById("adminCurrent").textContent = toBn(n);
+  showAdminMsg(`✓ সফলভাবে সংরক্ষিত হয়েছে — এখন ${toBn(n)} টি ক্যাচ ফাইল দেখানো হচ্ছে।`, "ok");
+});
+
+caseCountInput.addEventListener("keydown", e => {
+  if (e.key === "Enter") document.getElementById("saveCountBtn").click();
+});
+
+document.getElementById("logoutBtn").addEventListener("click", () => {
+  isAdmin = false;
+  closeModal("adminModal");
+});
+
+/* =========================================================
+   ১০. প্রোফাইল মডাল
+   ========================================================= */
+const profileHead = document.getElementById("profileHead");
+const profileBody = document.getElementById("profileBody");
+
+function openProfile(record){
+  const p = profileFor(record);
+
+  profileHead.innerHTML = `
+    <div class="profile-avatar" style="--c:${record.cat.color}">${escapeHTML(record.name.charAt(0))}</div>
+    <div class="profile-head-info">
+      <h2>${escapeHTML(record.name)}</h2>
+      <div class="profile-head-meta">
+        <span class="case-no">${record.caseNo}</span>
+        <span class="status ${record.status.c}">${record.status.t}</span>
+      </div>
+    </div>
+  `;
+
+  profileBody.innerHTML = `
+    <div class="pf-section">
+      <div class="pf-section-title">ব্যক্তিগত তথ্য</div>
+      <div class="pf-grid">
+        <div class="pf"><span class="k">পিতার নাম</span><span class="v">${escapeHTML(p.father)}</span></div>
+        <div class="pf"><span class="k">মাতার নাম</span><span class="v">${escapeHTML(p.mother)}</span></div>
+        <div class="pf"><span class="k">জন্ম তারিখ</span><span class="v">${toBn(p.birthDay)} ${BN_MONTHS[p.birthMonth-1]} ${toBn(p.birthYear)}</span></div>
+        <div class="pf"><span class="k">বয়স</span><span class="v">${toBn(p.age)} বছর</span></div>
+        <div class="pf"><span class="k">পেশা</span><span class="v">${escapeHTML(p.occupation)}</span></div>
+        <div class="pf"><span class="k">ধর্ম</span><span class="v">${escapeHTML(p.religion)}</span></div>
+        <div class="pf"><span class="k">রক্তের গ্রুপ</span><span class="v">${p.blood}</span></div>
+        <div class="pf"><span class="k">বৈবাহিক অবস্থা</span><span class="v">${escapeHTML(p.marital)}</span></div>
+      </div>
+    </div>
+
+    <div class="pf-section">
+      <div class="pf-section-title">স্থায়ী ঠিকানা</div>
+      <div class="address-box">
+        <div class="addr-line"><span>গ্রাম / বাসা</span>${escapeHTML(p.vill)}</div>
+        <div class="addr-line"><span>ডাকঘর</span>${escapeHTML(p.postOffice)}</div>
+        <div class="addr-line"><span>উপজেলা / থানা</span>${escapeHTML(p.upa)}</div>
+        <div class="addr-line"><span>জেলা</span>${escapeHTML(p.dist)}</div>
+        <div class="addr-line"><span>বিভাগ</span>${escapeHTML(p.div)}</div>
+      </div>
+    </div>
+
+    <div class="pf-section">
+      <div class="pf-section-title">যোগাযোগ ও পরিচয়</div>
+      <div class="pf-grid">
+        <div class="pf"><span class="k">মোবাইল নম্বর</span><span class="v mono">${p.phone}</span></div>
+        <div class="pf"><span class="k">জাতীয় পরিচয়পত্র (NID)</span><span class="v mono">${p.nid}</span></div>
+        <div class="pf wide"><span class="k">জিমেইল ঠিকানা</span><span class="v mono">${record.email}</span></div>
+      </div>
+    </div>
+
+    <div class="pf-section">
+      <div class="pf-section-title">ফাইল বিবরণ</div>
+      <div class="pf-grid">
+        <div class="pf"><span class="k">ক্যাচ ক্যাটাগরি</span><span class="v" style="color:${record.cat.color}">${record.cat.name}</span></div>
+        <div class="pf"><span class="k">নথিভুক্তির তারিখ</span><span class="v">${fmtDate(record.date)}</span></div>
+        <div class="pf"><span class="k">ফাইল স্ট্যাটাস</span><span class="v">${record.status.t}</span></div>
+        <div class="pf"><span class="k">কেস নম্বর</span><span class="v mono">${record.caseNo}</span></div>
+      </div>
+    </div>
+  `;
+
+  openModal("profileModal");
+}
+
+/* =========================================================
+   ১১. ইনিশিয়ালাইজ
+   ========================================================= */
+(function init(){
+  buildChips();
+  buildRecords(getSavedCount());
+  render();
+})();
+</script>
+</body>
+</html>
